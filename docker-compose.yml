@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: ./back
+    container_name: kband-backend
+    ports:
+      - "8000:8000"
+    restart: always
+  frontend:
+    build:
+      context: ./front
+    container_name: kband-frontend
+    ports:
+      - "80:8501"
+    environment:
+      - API_URL=http://backend:8000/recommend
+    depends_on:
+      - backend
+    restart: always
